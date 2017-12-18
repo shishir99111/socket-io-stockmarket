@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === 'production') {
 const router = require('./routes')();
 
 
-app.use(`/socket-ticker/${process.env.NODE_ENV}`, router);
+// app.use(`/socket-ticker/${process.env.NODE_ENV}`, router);
+app.use(router);
 
 require('./middleware/handleError')(app);
 
