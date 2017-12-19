@@ -6,6 +6,9 @@ const port = process.env.PORT;
 const app = express();
 const server = require('http').Server(app);
 
+// socket initialised
+// require('../config/socket.io')(server);
+
 // mounting middlewares
 require('./middleware/basic')(app);
 // app.use(require('./middleware/requestLogger'));
