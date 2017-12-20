@@ -4,17 +4,12 @@
   "description": "An implementation of Socket.io to fetch price ticker from stock market",
   "main": "index.js",
   "scripts": {
-    "debug": "nodemon --inspect=5860 index.js"
+    "debug": "nodemon --inspect=5860 index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shishir99111/socket-io-stockmarket.git"
-  },
-  "devDependencies": {
-    "eslint": "^4.7.2",
-    "eslint-config-airbnb-base": "^12.0.1",
-    "eslint-plugin-import": "^2.7.0",
-    "pre-commit": "1.2.2"
   },
   "keywords": [
     "Nodejs",
@@ -26,6 +21,12 @@
     "url": "https://github.com/shishir99111/socket-io-stockmarket/issues"
   },
   "homepage": "https://github.com/shishir99111/socket-io-stockmarket#readme",
+  "devDependencies": {
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb-base": "^12.0.1",
+    "eslint-plugin-import": "^2.7.0",
+    "pre-commit": "1.2.2"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",

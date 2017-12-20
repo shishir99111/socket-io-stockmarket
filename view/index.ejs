@@ -39,15 +39,15 @@
             console.log(tick[0]);
             $('#info').html('');
             for(var key in tick[0]){
-                const val = tick[0];
-                if(tick[0][key] instanceof Object || tick[0][key] instanceof Array){
-                    return false;
+                if (tick[0].hasOwnProperty(key)) {
+                    const val = tick[0];
+                    if(tick[0][key] instanceof Object || tick[0][key] instanceof Array) continue;
+                    $('#info').append(
+                        $('<li>').attr('class', 'list-group-item').append(
+                            $('<span>').attr('class', 'tab').append(key + ' : ' + tick[0][key])
+                        )
+                    );
                 }
-                $('#info').append(
-                    $('<li>').attr('class', 'list-group-item').append(
-                        $('<span>').attr('class', 'tab').append(key + ' : ' + tick[0][key])
-                    )
-                );
             }
             // window.scrollTo(0, document.body.scrollHeight);
         });
