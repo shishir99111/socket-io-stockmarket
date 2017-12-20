@@ -7,32 +7,51 @@
 </head>
 
 <body>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <a type="button" class="btn btn-success" href="https://kite.zerodha.com/connect/login?api_key=<%=apiKey%>">Authorize Zerodha</a>
-                <a type="button" class="btn btn-success" href="/start-ticker">Start Ticker</a>
-                <h1 class="display-3">Current Price</h1>
-            </div>
-            <div class="col-sm-6">
-                <h2 id="price"></h2>
+    <div class="row" style="margin-top: 100px">
+        <div class="col-md-6 offset-md-3">
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Ticker</h4>
+                    <p class="card-text">Authenticate and embrace your Price Ticker.</p>
+                </div>
+                <div class="card-body">
+                    <a class="card-link" href="https://kite.zerodha.com/connect/login?api_key=<%=apiKey%>">Authorize Zerodha</a>
+                    <a class="card-link" href="/start-ticker">Start Ticker</a>
+                </div>
+                <ul id="info" class="list-group list-group-flush">
+                    <li class="list-group-item">Please wait</li>
+                    <li class="list-group-item">Loading data</li>
+                    <li class="list-group-item">!!...</li>
+                </ul>
             </div>
         </div>
     </div>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script>
-        $(function() {
-            var socket = io();
-            socket.on('price', function(msg) {
-                console.log(msg);
-                $('#price').text(msg);
-                window.scrollTo(0, document.body.scrollHeight);
-            });
-        });
-    </script>
 </body>
+
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script>
+    $(function() {
+        var socket = io();
+        socket.on('tick', function(tick) {
+            console.log(tick[0]);
+            $('#info').html('');
+            for(var key in tick[0]){
+                const val = tick[0];
+                if(tick[0][key] instanceof Object || tick[0][key] instanceof Array){
+                    return false;
+                }
+                $('#info').append(
+                    $('<li>').attr('class', 'list-group-item').append(
+                        $('<span>').attr('class', 'tab').append(key + ' : ' + tick[0][key])
+                    )
+                );
+            }
+            // window.scrollTo(0, document.body.scrollHeight);
+        });
+    });
+</script>
 
 </html>

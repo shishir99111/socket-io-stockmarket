@@ -31,6 +31,6 @@ module.exports = (app) => {
         message: err.message,
         errorResponse: err.payload,
       },
-    })
-  })
-}
+    });
+  });
+};

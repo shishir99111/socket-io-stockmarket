@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(require('./middleware/ipAuthentication'));
 }
 // mounting routes
-const router = require('./routes')();
+const router = require('./routes')(server);
 
 
 // app.use(`/socket-ticker/${process.env.NODE_ENV}`, router);
@@ -31,7 +31,6 @@ server.listen(port, (err) => {
     logger.error(`Failure to listen: ${err.message} | ${err.name}`)
   }
   logger.info(`Live @PORT: ${port}@ENV: ${process.env.NODE_ENV}`);
-  require('../worker/index')(server);
 });
 
 
