@@ -2,6 +2,8 @@
 
 - A Socket.io implementation for fetching the Price ticker from Stock Market.
 
+![alt text](https://user-images.githubusercontent.com/13572684/34220348-55df054e-e5da-11e7-8812-df58a7a04066.png)
+
 ## Requirements
 
 - Nodejs ^v8.9.0
