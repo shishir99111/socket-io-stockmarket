@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "debug": "nodemon --inspect=5860 index.js",
+    "test": "testing=true node index.js",
     "start": "node index.js"
   },
   "repository": {

@@ -20,6 +20,8 @@ if (process.env.NODE_ENV === 'production') {
 // mounting routes
 const router = require('./routes')(server);
 
+require('../worker/index')(server);
+
 
 // app.use(`/socket-ticker/${process.env.NODE_ENV}`, router);
 app.use(router);

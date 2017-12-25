@@ -1,13 +1,14 @@
+const { KiteConnect, KiteTicker } = require('kiteconnect');
+const router = require('express').Router();
+const path = require('path');
+
 /**
  * Appends different routes to the
  * router and exports it.
  * @returns {object} express router instance
  */
 module.exports = (server) => {
-  const io = require('socket.io')(server);
-  const router = require('express').Router();
-  const path = require('path');
-  const { KiteConnect, KiteTicker } = require('kiteconnect');
+  const io = require('socket.io')(server); // eslint-disable-line
 
   // routes loaded
   router.get('/', (req, res) => {
@@ -39,30 +40,6 @@ module.exports = (server) => {
       });
     }
     return res.render('view/error.ejs', { error: req.query.message || 'unexpected error' });
-  });
-
-  router.get('/start-ticker', () => {
-    io.on('connection', (socket) => {
-      const apiKey = process.env.ZERODHA_API_KEY;
-      const userId = process.env.ZERODHA_USER_ID;
-      const publicToken = global.public_token;
-      const ticker = new KiteTicker(apiKey, userId, publicToken);
-
-      function setTick(ticks) {
-        logger.info('Ticks', ticks);
-        socket.emit('tick', ticks);
-      }
-
-      function subscribe() {
-        const items = [738561];
-        ticker.subscribe(items);
-        ticker.setMode(ticker.modeFull, items);
-      }
-
-      ticker.connect();
-      ticker.on('tick', setTick);
-      ticker.on('connect', subscribe);
-    });
   });
 
   return router;
