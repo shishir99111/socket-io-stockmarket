@@ -1,13 +1,10 @@
 // Starting an API Server to expose functinalities
 
-const express = require('../config/express')
+const express = require('../config/express');
 
 const port = process.env.PORT;
 const app = express();
 const server = require('http').Server(app);
-
-// socket initialised
-// require('../config/socket.io')(server);
 
 // mounting middlewares
 require('./middleware/basic')(app);
@@ -22,8 +19,6 @@ const router = require('./routes')(server);
 
 require('../worker/index')(server);
 
-
-// app.use(`/socket-ticker/${process.env.NODE_ENV}`, router);
 app.use(router);
 
 require('./middleware/handleError')(app);
