@@ -1,10 +1,14 @@
-const path = require('path');
-const { KiteConnect, KiteTicker } = require('kiteconnect');
+const { KiteTicker } = require('kiteconnect');
 
-module.exports = (server) => {
-  const io = require('socket.io')(server);
+module.exports = () => {
+  const io = rootRequire('config/socket.io')().createServer();
 
   io.on('connection', (socket) => {
+    if (global.public_token) {
+      logger.info('Public Token does not exist, please authenticate');
+      return false;
+    }
+
     logger.info('new connection', socket.id);
 
     const apiKey = process.env.ZERODHA_API_KEY;
@@ -30,7 +34,7 @@ module.exports = (server) => {
     }
 
     function subscribe() {
-      const items = [738561];
+      const items = [process.env.ZERODHA_SUBSCRIBED_ITEM];
       ticker.subscribe(items);
       ticker.setMode(ticker.modeFull, items);
     }
