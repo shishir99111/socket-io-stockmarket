@@ -1,25 +1,25 @@
 let io = null;
 
-function creatServer() {
+function createServer() {
   if (io != null) {
     return io;
   }
-  io = require('socket.io')(server); // eslint-disable-line
+  io = require('socket.io')(this.server); // eslint-disable-line
   return io;
 }
 
 function closeServer() {
-  if (io != null) {
-    return io;
+  if (io === null) {
+    return 'Socket already closed';
   }
-  io = require('socket.io')(server); // eslint-disable-line
-  return io;
+  io = null; // eslint-disable-line
+  return true;
 }
 
 module.exports = (server) => {
   this.server = server;
   return {
-    creatServer,
+    createServer,
     closeServer,
   };
 };
